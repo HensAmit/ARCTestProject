@@ -14,7 +14,7 @@ public class ScenarioTest extends BaseTest{
         page.clickFoldersAndFiles();
         page.clickPlusIcon();
         page.clickCreateNewFolder();
-        page.enterFolderName("TestFolder");
+        page.enterFolderName(Page.folderName);
         page.clickCreateButton();
         page.waitForPopUpClose();
         page.openFolder();

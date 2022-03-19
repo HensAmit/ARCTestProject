@@ -1,5 +1,6 @@
 package com.arc.pageobjects;
 
+import com.arc.helper.Helper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -23,12 +24,13 @@ public class Page extends BasePage{
     private final By folderNameTextbox = By.xpath("//input[contains(@formcontrolname,'newFolderName')]");
     private final By createButton = By.xpath("//span[text()='Create']");
     private final By successPopupCloseBtn = By.xpath("(//button[contains(@class,'mat-focus-indicator')])[9]");
-    private final By folder = By.xpath("//span[text()='TestFolder']");
+    public static String folderName = Helper.getFolderName();
+    private final By folder = By.xpath("//span[text()='"+folderName+"']");
     private final By uploadFileOption = By.xpath("//span[text()='Upload files']");
     private final By selectFilesBtn = By.id("btnSelectFiles");
     private final By uploadBtn = By.id("multipartUploadBtn");
     private final String frameId = "myFrameSPA";
-    private final By uploadedFile = By.xpath("//span[text()='atlassian-git-cheatsheet.pdf']");
+    private final By uploadedFile = By.xpath("//div[@class='folder-view']/following::span[text()='atlassian-git-cheatsheet.pdf']");
     private static String parentWindowId = "";
     private final By pinIcon = By.xpath("//a[@data-original-title='Add pin']/i");
     private final By iconSearch = By.id("tagIconSearchInput");
@@ -36,9 +38,9 @@ public class Page extends BasePage{
     private final By iconCreatedOnFile = By.xpath("//div[contains(@class,'icon-air-compressor')]");
 
     public void login(){
-        driver.findElement(By.id("UserID")).sendKeys("testautomation@yopmail.com");
-        driver.findElement(By.id("Password")).sendKeys("123456");
-        driver.findElement(By.id("btnLogin")).click();
+        driver.findElement(username).sendKeys("testautomation@yopmail.com");
+        driver.findElement(password).sendKeys("123456");
+        driver.findElement(loginBtn).click();
         driver.switchTo().frame(frameId);
     }
 
