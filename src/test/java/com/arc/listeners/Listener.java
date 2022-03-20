@@ -3,12 +3,13 @@ package com.arc.listeners;
 import com.arc.helper.Helper;
 import com.arc.report.ExtentReport;
 import com.aventstack.extentreports.MediaEntityBuilder;
-import org.testng.ISuite;
-import org.testng.ISuiteListener;
-import org.testng.ITestListener;
-import org.testng.ITestResult;
+import org.testng.*;
 
-public class Listener implements ISuiteListener, ITestListener {
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+public class Listener implements ISuiteListener, ITestListener, IExecutionListener {
 
     public void onStart(ISuite suite) {
         ExtentReport.initReport();
@@ -28,5 +29,14 @@ public class Listener implements ISuiteListener, ITestListener {
 
     public void onTestFailure(ITestResult result) {
         ExtentReport.extentTest.pass(result.getMethod().getMethodName()+" is Failed", MediaEntityBuilder.createScreenCaptureFromBase64String(Helper.getScreenshot()).build());
+    }
+
+    public void onExecutionFinish() {
+        Desktop desktop = Desktop.getDesktop();
+        try {
+            desktop.open(new File("test-result//index.html"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
